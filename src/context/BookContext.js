@@ -1,15 +1,12 @@
-import { createContext, useReducer } from "react";
+import { createContext, useReducer, useEffect } from "react";
+import useLocalStorage from "../hooks/useLocalStorage";
 import { bookReducer } from "../reducer/bookReducer";
 
 export const BookContext = createContext()
 
 const BookContextProvider = (props) => {
 
-    const [books, dispatch] = useReducer(bookReducer, [
-        {id: 1, title: 'Código Da Vinci', author: 'Dan Brown'},
-        {id: 2, title: 'Harry Potter', author: 'J. K. Rowling'},
-        {id: 3, title: 'El Principito', author: 'Antoine de Saint-Exupéry'},
-    ])
+    const [books, dispatch] = useLocalStorage('books', bookReducer)
 
     return ( 
         <BookContext.Provider value={{ books, dispatch }}>
